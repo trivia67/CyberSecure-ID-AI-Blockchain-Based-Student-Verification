@@ -1,0 +1,95 @@
+/* General Page Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #dfefff, #ffffff); /* Soft gradient background */
+    color: #333333;
+}
+
+/* Header Styles */
+header {
+    background-color: #0078D7;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.back-arrow {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+header h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+/* Settings Container Styles */
+.settings-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.settings-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background: #f7fcff; /* Slightly brighter background for sections */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section h2 {
+    font-size: 22px;
+    color: #0078D7;
+    margin-bottom: 10px;
+}
+
+.settings-section p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #555555;
+}
+
+.settings-section button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(to right, #0078D7, #0056a8); /* Gradient button for modern look */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.settings-section button:hover {
+    background: linear-gradient(to right, #0056a8, #003c74); /* Hover color shift */
+    transform: translateY(-3px); /* Lift effect */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #e8f5ff;
+    font-size: 14px;
+    color: #333333;
+}
+
+footer p {
+    margin: 0;
+}
