@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Student ID Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-container h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .home-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #374151;
+      z-index: 999;
+    }
+    
+
+    .home-circle {
+      background-color: #e5e7eb;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    
+    .home-circle:hover {
+      background-color: #d1d5db;
+    }
+    
+    .home-label {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #0057ff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0044cc;
+    }
+
+    .theme-toggle {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .theme-toggle button {
+      background: #f2f4f4;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .dark-mode {
+      background: #1a1a1a;
+      color: #f9f9f9;
+    }
+
+    .dark-mode .login-container {
+      background: #2a2a2a;
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .theme-toggle button {
+      background: #333;
+      color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<a href="home.html" class="home-floating">
+  <div class="home-circle">🏠</div>
+  <div class="home-label">Home</div>
+</a>
+
+
+  <div class="login-container">
+    <h2>Student ID Verification</h2>
+
+    <form>
+      <div class="form-group">
+        <label for="role">Login as</label>
+        <select id="role" required>
+          <option value="student">Student</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email / ID</label>
+        <input type="email" id="email" placeholder="example@domain.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="student-id">Student ID</label>
+        <input type="text" id="student-id" placeholder="123456789" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="********" required />
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="error-msg" style="display: none;">Invalid credentials. Please try again.</div>
+    <div class="status" style="display: none;">
+      <i>✔️</i> Verification successful! Proceeding to the next step.
+    </div>
+    
+
+    <div class="theme-toggle">
+      <button onclick="toggleTheme()">Dark/Light Mode</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>

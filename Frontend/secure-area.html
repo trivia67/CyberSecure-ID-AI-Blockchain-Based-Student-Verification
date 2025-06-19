@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✅ Verified</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0fdf4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .card h1 {
+      color: #22c55e;
+      font-size: 2rem;
+    }
+    .card p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>✅ Verified!</h1>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Student ID:</strong> <span id="id"></span></p>
+    <p><strong>Roll No:</strong> <span id="roll"></span></p>
+    <p><strong>Time:</strong> <span id="time"></span></p>
+  </div>
+
+  <script>
+    document.getElementById("name").innerText = localStorage.getItem("verified_name") || "N/A";
+    document.getElementById("id").innerText = localStorage.getItem("verified_id") || "N/A";
+    document.getElementById("roll").innerText = localStorage.getItem("verified_rollno") || "N/A";
+    document.getElementById("time").innerText = new Date().toLocaleString();
+  </script>
+</body>
+</html>

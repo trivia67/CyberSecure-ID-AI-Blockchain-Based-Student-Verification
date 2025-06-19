@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puzzle Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      padding: 10px;
+      width: 90%;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0057ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0044cc;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>🧠 Solve to Access</h2>
+    <input type="text" id="roll" placeholder="Enter Roll Number" /><br />
+    <label id="captchaLabel"></label><br />
+    <input type="text" id="captcha" placeholder="Answer the puzzle" /><br />
+    <button onclick="validateLogin()">Login</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Generate math puzzle
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const answer = num1 + num2;
+
+    document.getElementById("captchaLabel").innerText = `What is ${num1} + ${num2}?`;
+
+    function validateLogin() {
+      const roll = document.getElementById("roll").value;
+      const captcha = parseInt(document.getElementById("captcha").value);
+      const result = document.getElementById("result");
+
+      if (roll === "1234" && captcha === answer) {
+        result.style.color = "green";
+        result.innerText = "✅ Access Granted!";
+        // Redirect if needed: window.location.href = "dashboard.html";
+      } else {
+        result.style.color = "red";
+        result.innerText = "❌ Access Denied!";
+      }
+    }
+  </script>
+
+</body>
+</html>

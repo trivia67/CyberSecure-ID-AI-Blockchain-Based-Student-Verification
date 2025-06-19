@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Face Recognition Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    h2 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .subtext {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid #d1d5db;
+      margin-bottom: 1rem;
+    }
+
+    .verify-btn {
+      background-color: #4ade80;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .verify-btn:hover {
+      background-color: #22c55e;
+    }
+
+    #studentIDInput {
+      margin-bottom: 1rem;
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Hello there 👋</h2>
+    <p class="subtext">
+      Let’s verify your identity.<br>
+      Enter your Student ID and align your face in the frame below.
+    </p>
+
+    <input type="text" id="studentIDInput" placeholder="Enter Student ID (e.g., 230122349)" />
+    <video id="camera" autoplay playsinline></video>
+
+    <button type="button" class="verify-btn" id="verifyBtn">Start Face Scan</button>
+
+    <p class="footer-note">
+      Your face scan is encrypted and secure.<br>
+      Need help? Contact our IT Support Team.
+    </p>
+  </div>
+
+  <canvas id="snapshotCanvas" width="640" height="480" style="display: none;"></canvas>
+
+  <script>
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('snapshotCanvas');
+    const button = document.getElementById('verifyBtn');
+
+    // Start the camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        alert("❌ We need access to your camera to continue.");
+        console.error(err);
+      });
+
+    // Main logic
+    button.addEventListener("click", () => {
+      const studentID = document.getElementById("studentIDInput").value.trim();
+
+      if (!studentID) {
+        alert("❗ Please enter your Student ID.");
+        return;
+      }
+
+      button.disabled = true;
+      button.innerText = "Scanning...";
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append("student_id", studentID);
+        formData.append("image", blob, "snapshot.jpg");
+
+        fetch("http://127.0.0.1:5000/verify_face", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log("✅ Response:", data);
+
+          if (data.status === "success") {
+            localStorage.setItem("verified_name", data.name);
+            localStorage.setItem("verified_id", studentID);
+            localStorage.setItem("verified_rollno", data.rollno);
+
+            // Stop camera stream
+            const stream = video.srcObject;
+            if (stream) stream.getTracks().forEach(track => track.stop());
+
+            window.location.href = "secure-area.html";
+          } else {
+            alert("❌ " + data.msg);
+            button.disabled = false;
+            button.innerText = "Start Face Scan";
+          }
+        })
+        .catch(err => {
+          console.error("❌ Fetch Error:", err);
+          alert("❌ Could not connect to the backend.");
+          button.disabled = false;
+          button.innerText = "Start Face Scan";
+        });
+      }, 'image/jpeg');
+    });
+  </script>
+</body>
+</html>

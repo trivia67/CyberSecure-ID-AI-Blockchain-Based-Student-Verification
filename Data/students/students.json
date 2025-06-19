@@ -1,0 +1,30 @@
+[
+    {
+        "student_id": "230121694",
+        "name": "Tanuja Samant",
+        "roll": "001",
+        "email": "tanuja.samant2345@gmail.com",
+        "encoding_file": "230121694.pkl"
+    },
+    {
+        "student_id": "23012809",
+        "name": "Komal Gurung",
+        "roll": "002",
+        "email": "gurungkomal2005@gmail.com",
+        "encoding_file": "23012809.pkl"
+    },
+    {
+        "student_id": "230121347",
+        "name": "Ishita Chaturvedi",
+        "roll": "003",
+        "email": "ishitaishita061@gmail.com",
+        "encoding_file": "230121347.pkl"
+    },
+    {
+        "student_id": "230122349",
+        "name": "Priya Kholiya",
+        "roll": "004",
+        "email": "priyakholiya88@gmail.com",
+        "encoding_file": "230122349.pkl"
+    }
+]
