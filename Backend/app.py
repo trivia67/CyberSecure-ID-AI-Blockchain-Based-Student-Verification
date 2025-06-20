@@ -7,12 +7,12 @@ import pickle
 import hashlib
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from blockchain import add_verification_log  # Ensure this exists or mock it
+from blockchain import add_verification_log  # Make sure this works
+import datetime
 
-# Load environment variables
+# Load env variables
 load_dotenv()
 
-# Flask setup
 app = Flask(__name__)
 CORS(app)
 
@@ -20,11 +20,11 @@ CORS(app)
 client = MongoClient("mongodb://localhost:27017/")
 db = client["cybersecure_verification"]
 students = db["students"]
+blockchain_logs = db["blockchain"]
 
-# Directory with encoded face .pkl files
+# Path to face encodings
 DATA_DIR = os.getenv("DATA_DIR", "../Data/faces")
 
-# Encode hash for comparison integrity
 def hash_encoding(encoding):
     return hashlib.sha256(np.array(encoding).tobytes()).hexdigest()
 
@@ -38,18 +38,15 @@ def verify_face():
     if not student_id or not image:
         return jsonify({"status": "error", "msg": "Missing student_id or image"}), 400
 
-    # Check if face encoding file exists
     file_path = os.path.join(DATA_DIR, f"{student_id}.pkl")
     if not os.path.exists(file_path):
         return jsonify({"status": "fail", "msg": f"No encoding file for ID {student_id}"}), 404
 
-    # Load encoding and hash
     with open(file_path, "rb") as f:
         data = pickle.load(f)
         known_encoding = np.array(data["encoding"])
         known_hash = data["hash"]
 
-    # Load uploaded image
     img_np = face_recognition.load_image_file(image)
     encodings = face_recognition.face_encodings(img_np)
 
@@ -59,10 +56,10 @@ def verify_face():
     new_encoding = encodings[0]
     new_hash = hash_encoding(new_encoding)
 
-    #if new_hash != known_hash:
-     #   return jsonify({"status": "fail", "msg": "Hash mismatch"}), 403
+    # Skip hash check for now if needed
+    # if new_hash != known_hash:
+    #     return jsonify({"status": "fail", "msg": "Hash mismatch"}), 403
 
-    # Match face
     match = face_recognition.compare_faces([known_encoding], new_encoding)[0]
 
     if match:
@@ -73,8 +70,14 @@ def verify_face():
                 "msg": f"No student record found for ID {student_id}."
             }), 404
 
-        # Optional: Log to blockchain
-        add_verification_log(student_id, "success")
+        # ✅ Log entry to Mongo blockchain collection
+        log_entry = {
+            "student_id": student_id,
+            "status": "success",
+            "timestamp": datetime.datetime.utcnow()
+        }
+        blockchain_logs.insert_one(log_entry)
+        add_verification_log(student_id, "success")  # Optional
 
         return jsonify({
             "status": "success",
@@ -85,8 +88,28 @@ def verify_face():
         }), 200
 
     else:
+        blockchain_logs.insert_one({
+            "student_id": student_id,
+            "status": "fail",
+            "timestamp": datetime.datetime.utcnow()
+        })
         add_verification_log(student_id, "fail")
         return jsonify({"status": "fail", "msg": "Face mismatch"}), 401
+
+# ✅ Add this endpoint for frontend dashboard (output.html)
+@app.route("/logs", methods=["GET"])
+def get_logs():
+    logs = []
+    for entry in blockchain_logs.find({}, {"_id": 0}):
+        student = students.find_one({"student_id": entry["student_id"]}, {"_id": 0})
+        logs.append({
+            "student_id": entry["student_id"],
+            "timestamp": entry["timestamp"],
+            "status": entry["status"],
+            "name": student.get("name") if student else "",
+            "rollno": student.get("roll") if student else ""
+        })
+    return jsonify({"logs": logs})
 
 if __name__ == "__main__":
     app.run(debug=True)

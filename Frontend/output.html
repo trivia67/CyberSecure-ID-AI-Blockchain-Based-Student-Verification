@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VerifyID - Verification Logs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Basic reset and theme */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    body {
+      background-color: #f9f9f9;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0057ff;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #374151;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #f3f4f6;
+      color: #111827;
+      font-weight: 600;
+    }
+
+    td {
+      font-size: 0.95rem;
+    }
+
+    .status-success {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .status-fail {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Admin Dashboard</div>
+  </header>
+
+  <main>
+    <h1>Verified Student Logs</h1>
+    <table id="logTable">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>ID</th>
+          <th>Roll No</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+  </main>
+
+  <div class="footer">© CyberSecure ID Verification</div>
+
+  <script>
+    async function fetchLogs() {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/logs");
+        const data = await res.json();
+
+        const tbody = document.querySelector("#logTable tbody");
+        tbody.innerHTML = "";
+
+        data.logs.reverse().forEach(log => {
+          const date = new Date(log.timestamp);
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${log.name || "Unknown"}</td>
+            <td>${log.student_id}</td>
+            <td>${log.rollno || "-"}</td>
+            <td class="${log.status === 'success' ? 'status-success' : 'status-fail'}">${log.status}</td>
+            <td>${date.toLocaleDateString()}</td>
+            <td>${date.toLocaleTimeString()}</td>
+          `;
+
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Failed to load logs:", err);
+        alert("⚠️ Could not connect to the backend.");
+      }
+    }
+
+    fetchLogs();
+  </script>
+</body>
+</html>
