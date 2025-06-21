@@ -6,149 +6,169 @@
   <title>Generate QR for Face Verification</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-    body {
-      background: linear-gradient(135deg, #e0f2fe, #f0fdf4);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+body {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 
-    .container {
-      background: #ffffff;
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 460px;
-      text-align: center;
-      animation: fadeIn 0.6s ease-in-out;
-    }
+.container {
+  background: #fff; /* white background */
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: #0f172a; /* dark text for contrast */
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
 
-    h2 {
-      font-size: 2rem;
-      color: #1e293b;
-      margin-bottom: 0.5rem;
-    }
+h2 {
+  font-size: 2.1rem;
+  margin-bottom: 0.4rem;
+  color: #1e3a8a;
+}
 
-    p.subtitle {
-      color: #475569;
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-      line-height: 1.5;
-    }
+p.subtitle {
+  color: #475569;
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+}
 
-    .form-group {
-      position: relative;
-      margin-bottom: 1.4rem;
-      text-align: left;
-    }
+.form-group {
+  position: relative;
+  margin-bottom: 1.4rem;
+  text-align: left;
+}
 
-    .form-group input {
-      width: 100%;
-      padding: 1rem 1rem 0.8rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: transparent;
-      transition: 0.3s;
-    }
+.form-group input {
+  width: 100%;
+  padding: 1rem 1rem 0.8rem;
+  border: 1.5px solid #94a3b8;
+  background: transparent;
+  color: #0f172a;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
 
-    .form-group input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-      outline: none;
-    }
+.form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
 
-    .form-group label {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      color: #94a3b8;
-      font-size: 0.95rem;
-      pointer-events: none;
-      transition: 0.3s ease;
-      background: white;
-      padding: 0 4px;
-    }
+.form-group label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #64748b;
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #fff;
+  padding: 0 6px;
+}
 
-    .form-group input:focus + label,
-    .form-group input:not(:placeholder-shown) + label {
-      top: -0.6rem;
-      left: 0.9rem;
-      font-size: 0.78rem;
-      color: #2563eb;
-    }
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.9rem;
+  font-size: 0.78rem;
+  background: #fff;
+  color: #3b82f6;
+  font-weight: 600;
+}
 
-    button {
-      background-color: #10b981;
-      color: white;
-      padding: 0.85rem 1.6rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s ease;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
-    }
+button {
+  background: linear-gradient(to right, #3b82f6, #2563eb);
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    button:hover {
-      background-color: #059669;
-      transform: translateY(-1px);
-    }
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+}
 
-    .message {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #f59e0b;
-      min-height: 1.2rem;
-    }
+.message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #f59e0b;
+  min-height: 1.2rem;
+}
 
-    .qr-code {
-      margin-top: 2rem;
-      animation: fadeInUp 0.4s ease-in-out;
-    }
+.qr-code {
+  margin-top: 2rem;
+  animation: fadeInUp 0.5s ease;
+}
 
-    .qr-code img {
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-width: 100%;
-      transition: transform 0.3s ease;
-    }
+.qr-code img {
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+  transition: transform 0.3s ease;
+}
 
-    .qr-code img:hover {
-      transform: scale(1.05);
-    }
+.qr-code img:hover {
+  transform: scale(1.05);
+}
 
-    .qr-label {
-      margin-top: 0.75rem;
-      color: #334155;
-      font-size: 0.9rem;
-    }
+.qr-label {
+  margin-top: 0.75rem;
+  color: #475569;
+  font-size: 0.92rem;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.spinner {
+  margin: 2rem auto 0;
+  border: 4px solid #cbd5e1;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
-    @media (max-width: 500px) {
-      h2 { font-size: 1.7rem; }
-      button { font-size: 0.95rem; }
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 500px) {
+  h2 { font-size: 1.7rem; }
+  button { font-size: 0.95rem; }
+}
+
+
   </style>
 </head>
 <body>
@@ -158,7 +178,7 @@
 
     <div class="form-group">
       <input type="text" id="studentIDInput" placeholder=" " />
-      <label for="studentIDInput">Student ID</label>
+      <label for="studentIDInput">Student ID (e.g., 230122349)</label>
     </div>
 
     <button onclick="generateQRCode()">Generate QR Code</button>
@@ -188,13 +208,19 @@
         return;
       }
 
+      // Show loader
+      qrCodeContainer.innerHTML = '<div class="spinner"></div>';
+
       const faceURL = `http://192.168.10.113:5500/face_recog.html?student_id=${encodeURIComponent(studentID)}`;
       const qrAPI = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(faceURL)}&size=180x180`;
 
-      qrCodeContainer.innerHTML = `
-        <img src="${qrAPI}" alt="QR Code for ${studentID}">
-        <p class="qr-label">📷 Scan this QR code to continue face verification</p>
-      `;
+      // Delay slightly for loader effect
+      setTimeout(() => {
+        qrCodeContainer.innerHTML = `
+          <img src="${qrAPI}" alt="QR Code for ${studentID}">
+          <p class="qr-label">📷 Scan this QR to continue face verification</p>
+        `;
+      }, 600);
     }
   </script>
 </body>
