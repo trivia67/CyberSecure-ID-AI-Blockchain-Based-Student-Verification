@@ -3,145 +3,197 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VerifyID - Verification Logs</title>
+  <title>Admin Dashboard – CyberSecureID</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* Basic reset and theme */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
     body {
-      background-color: #f9f9f9;
-      color: #222;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #fff;
-      padding: 1rem 2rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      height: 100vh;
+      background-color: #f1f5f9;
+      color: #1e293b;
     }
 
-    .logo {
-      font-size: 1.6rem;
+    aside {
+      width: 240px;
+      background-color: #1e293b;
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    aside h2 {
+      font-size: 1.5rem;
       font-weight: 600;
-      color: #0057ff;
+      color: #60a5fa;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      display: block;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      transition: background 0.2s ease;
+    }
+
+    nav a:hover {
+      background-color: #334155;
     }
 
     main {
+      flex: 1;
       padding: 2rem;
+      overflow-y: auto;
     }
 
-    h1 {
-      margin-bottom: 1.5rem;
-      color: #374151;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+    }
+
+    .table-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .table-card h3 {
+      margin-bottom: 1rem;
+      color: #0f172a;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
     }
 
     th, td {
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     th {
-      background-color: #f3f4f6;
-      color: #111827;
+      background-color: #f8fafc;
       font-weight: 600;
+      color: #475569;
     }
 
-    td {
-      font-size: 0.95rem;
+    tr:hover {
+      background-color: #f1f5f9;
     }
 
-    .status-success {
-      color: #10b981;
+    .status {
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      background-color: #d1fae5;
+      color: #065f46;
       font-weight: 600;
-    }
-
-    .status-fail {
-      color: #ef4444;
-      font-weight: 600;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      color: #888;
       font-size: 0.85rem;
+      display: inline-block;
+    }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: #64748b;
+    }
+
+    @media (max-width: 768px) {
+      aside {
+        display: none;
+      }
+
+      body {
+        flex-direction: column;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Admin Dashboard</div>
-  </header>
+
+  <!-- Inside the <aside> -->
+<aside>
+    <h2>CyberSecureID</h2>
+    <nav>
+      <a href="#">📊 Dashboard</a>
+      <a href="#">📁 Logs</a> <!-- We'll explain this below -->
+    </nav>
+  </aside>
+  
 
   <main>
-    <h1>Verified Student Logs</h1>
-    <table id="logTable">
-      <thead>
-        <tr>
-          <th>Student Name</th>
-          <th>ID</th>
-          <th>Roll No</th>
-          <th>Status</th>
-          <th>Date</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Data will be inserted here -->
-      </tbody>
-    </table>
+    <header>
+      <h1>Admin Dashboard</h1>
+      <p>👋 Welcome, Admin</p>
+    </header>
+
+    <div class="table-card">
+      <h3>✅ Verified Student Records</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Student ID</th>
+            <th>Roll No</th>
+            <th>Date & Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody"></tbody>
+      </table>
+
+      <div id="emptyState" class="no-data" style="display: none;">
+        No verified students found.
+      </div>
+    </div>
   </main>
 
-  <div class="footer">© CyberSecure ID Verification</div>
-
   <script>
-    async function fetchLogs() {
-      try {
-        const res = await fetch("http://127.0.0.1:5000/logs");
-        const data = await res.json();
+    const users = JSON.parse(localStorage.getItem("verified_users") || "[]");
+    const tbody = document.getElementById("userTableBody");
+    const emptyState = document.getElementById("emptyState");
 
-        const tbody = document.querySelector("#logTable tbody");
-        tbody.innerHTML = "";
-
-        data.logs.reverse().forEach(log => {
-          const date = new Date(log.timestamp);
-          const row = document.createElement("tr");
-
-          row.innerHTML = `
-            <td>${log.name || "Unknown"}</td>
-            <td>${log.student_id}</td>
-            <td>${log.rollno || "-"}</td>
-            <td class="${log.status === 'success' ? 'status-success' : 'status-fail'}">${log.status}</td>
-            <td>${date.toLocaleDateString()}</td>
-            <td>${date.toLocaleTimeString()}</td>
-          `;
-
-          tbody.appendChild(row);
-        });
-      } catch (err) {
-        console.error("Failed to load logs:", err);
-        alert("⚠️ Could not connect to the backend.");
-      }
+    if (users.length === 0) {
+      emptyState.style.display = "block";
+    } else {
+      users.forEach(user => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${user.name}</td>
+          <td>${user.id}</td>
+          <td>${user.roll}</td>
+          <td>${user.time}</td>
+          <td><span class="status">${user.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
-
-    fetchLogs();
   </script>
 </body>
 </html>

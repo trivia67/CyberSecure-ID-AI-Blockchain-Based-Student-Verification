@@ -85,7 +85,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Hello there 👋</h2>
+    <h2>Hello there </h2>
     <p class="subtext">
       Let’s verify your identity.<br>
       Enter your Student ID and align your face in the frame below.
@@ -105,12 +105,6 @@
   <canvas id="snapshotCanvas" width="640" height="480" style="display: none;"></canvas>
 
   <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const studentIDFromURL = urlParams.get("student_id");
-
-  if (studentIDFromURL) {
-    document.getElementById("studentIDInput").value = studentIDFromURL;
-  }
     const video = document.getElementById('camera');
     const canvas = document.getElementById('snapshotCanvas');
     const button = document.getElementById('verifyBtn');

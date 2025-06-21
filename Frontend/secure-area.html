@@ -40,10 +40,20 @@
   </div>
 
   <script>
-    document.getElementById("name").innerText = localStorage.getItem("verified_name") || "N/A";
-    document.getElementById("id").innerText = localStorage.getItem("verified_id") || "N/A";
-    document.getElementById("roll").innerText = localStorage.getItem("verified_rollno") || "N/A";
-    document.getElementById("time").innerText = new Date().toLocaleString();
+    const name = localStorage.getItem("verified_name") || "N/A";
+    const id = localStorage.getItem("verified_id") || "N/A";
+    const roll = localStorage.getItem("verified_rollno") || "N/A";
+    const time = new Date().toLocaleString();
+  
+    document.getElementById("name").innerText = name;
+    document.getElementById("id").innerText = id;
+    document.getElementById("roll").innerText = roll;
+    document.getElementById("time").innerText = time;
+  
+    const previous = JSON.parse(localStorage.getItem("verified_users") || "[]");
+    previous.push({ name, id, roll, time, status: "Verified ✅" });
+    localStorage.setItem("verified_users", JSON.stringify(previous));
   </script>
+  
 </body>
 </html>
