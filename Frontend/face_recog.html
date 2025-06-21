@@ -105,6 +105,12 @@
   <canvas id="snapshotCanvas" width="640" height="480" style="display: none;"></canvas>
 
   <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const studentIDFromURL = urlParams.get("student_id");
+
+  if (studentIDFromURL) {
+    document.getElementById("studentIDInput").value = studentIDFromURL;
+  }
     const video = document.getElementById('camera');
     const canvas = document.getElementById('snapshotCanvas');
     const button = document.getElementById('verifyBtn');
