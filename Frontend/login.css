@@ -1,80 +1,116 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #dbeeff, #f5faff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #dbeafe; /* light blue background */
   margin: 0;
-  padding: 0;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #ffffff;
+  padding: 3rem 3.5rem;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   width: 100%;
+  max-width: 420px;
+  transition: box-shadow 0.3s ease;
 }
 
-.login-box {
-  background-color: #ffffff;
-  padding: 40px 50px;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 350px;
+.login-container:hover {
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+}
+
+.login-box h2 {
+  color: #0f172a;
+  margin-bottom: 2rem;
   text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  font-size: 2rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
 }
 
-h2 {
-  color: #2b3d5f;
-  margin-bottom: 30px;
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
-  text-align: left;
-  margin-bottom: 6px;
-  color: #333;
-  font-size: 0.95rem;
+  color: #334155;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  user-select: none;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
+input[type="text"],
+input[type="password"] {
+  padding: 0.9rem 1.2rem;
   font-size: 1rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  margin-bottom: 1.4rem;
+  transition: border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+  background: linear-gradient(145deg, #f9faff, #e6ebf7);
+  box-shadow: inset 4px 4px 8px #d3daf0, inset -4px -4px 8px #ffffff;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 10px 3px rgba(59, 130, 246, 0.3);
+  background: #fefeff;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background-color: #2b3d5f;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: 0.3s ease;
+  border-radius: 16px;
+  padding: 1rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.15s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 
-button:hover {
-  background-color: #1e2e45;
-  cursor: pointer;
+button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.6);
+  transform: translateY(-3px);
+}
+
+button:disabled {
+  background-color: #93c5fd;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .note {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  color: #666;
+  margin-top: 1.7rem;
+  text-align: center;
+  color: #475569;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .note a {
-  color: #0077cc;
+  color: #3b82f6;
   text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 .note a:hover {
+  color: #1e40af;
   text-decoration: underline;
 }
