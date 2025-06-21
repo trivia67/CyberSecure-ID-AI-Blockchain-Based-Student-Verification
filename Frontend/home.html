@@ -4,24 +4,127 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CyberSecureID – Home</title>
-  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #f3f4f6, #e0f7fa);
+      color: #1f2937;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    header {
+      background: linear-gradient(to right, #0f172a, #1e3a8a);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #dbeafe;
+    }
+
+    .main-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f1f5f9;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .nav-btn {
+        width: 80%;
+        font-size: 1rem;
+        padding: 0.9rem 2rem;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <!-- <img src="your-logo.png" alt="CyberSecureID Logo" class="logo" /> -->
+  <header>
     <h1>Welcome to CyberSecureID</h1>
     <p class="subtitle">Choose your secure entry method</p>
   </header>
 
   <main class="main-section">
     <div class="button-group">
-      <a href="./qr_verify.html" class="nav-btn">🔍 Scan QR Code</a>
-<!--       <a href="./face_recog.html" class="nav-btn">📷 Face Recognition</a> -->
+      <a href="qr_verify.html" class="nav-btn">🔍 Scan QR Code</a>
     </div>
   </main>
 
   <footer class="footer">
-    <div class="footer-spacer"></div>
     <p>&copy; 2025 Sunrise Institute. All rights reserved.</p>
   </footer>
 </body>
