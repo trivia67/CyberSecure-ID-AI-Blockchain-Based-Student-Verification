@@ -22,5 +22,67 @@
       <p class="note">New user? <a href="signin.html">Register here</a></p>
     </div>
   </div>
+   <script>
+    const form = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const loginBtn = document.getElementById('loginBtn');
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+
+    // Toggle password visibility
+    togglePassword.addEventListener('click', () => {
+      if(passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePassword.textContent = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        togglePassword.textContent = 'Show';
+      }
+      passwordInput.focus();
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Reset error displays
+      usernameError.style.display = 'none';
+      passwordError.style.display = 'none';
+      usernameInput.classList.remove('shake');
+      passwordInput.classList.remove('shake');
+
+      if(!usernameInput.value.trim()) {
+        usernameError.style.display = 'block';
+        usernameInput.classList.add('shake');
+        usernameInput.focus();
+        valid = false;
+      }
+
+      if(!passwordInput.value.trim()) {
+        passwordError.style.display = 'block';
+        if(valid) { // focus only if username valid
+          passwordInput.classList.add('shake');
+          passwordInput.focus();
+        }
+        valid = false;
+      }
+
+      if(!valid) return;
+
+      // Disable button and show spinner
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<div class="spinner"></div> Logging in...';
+
+      // Simulate login delay
+      setTimeout(() => {
+        loginBtn.innerHTML = 'Login';
+        loginBtn.disabled = false;
+        form.submit();
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
