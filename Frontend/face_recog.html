@@ -7,85 +7,259 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: 'Inter', sans-serif;
     }
 
     body {
-      background-color: #f3f4f6;
+      background: linear-gradient(135deg, #dbeafe, #f0fdfa);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 20px;
+      overflow: hidden;
     }
 
     .container {
-      background: #fff;
+      background: white;
       border-radius: 20px;
-      padding: 2rem;
+      padding: 2.5rem;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      animation: fadeIn 0.7s ease-in-out;
+      position: relative;
+      transition: all 0.3s ease;
     }
 
     h2 {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 2rem;
       color: #111827;
+      margin-bottom: 0.6rem;
     }
 
     .subtext {
       color: #6b7280;
-      font-size: 0.95rem;
-      margin-bottom: 1.2rem;
-      line-height: 1.4;
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    #studentIDInput {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    #studentIDInput:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+      outline: none;
     }
 
     video {
       width: 100%;
-      border-radius: 12px;
-      border: 2px solid #d1d5db;
-      margin-bottom: 1rem;
+      border-radius: 14px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 1.2rem;
+      transition: 0.3s ease-in-out;
     }
 
     .verify-btn {
-      background-color: #4ade80;
+      background: linear-gradient(to right, #10b981, #059669);
       color: white;
       border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      padding: 0.8rem 1.8rem;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.05rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3);
+      transition: all 0.3s ease;
     }
 
     .verify-btn:hover {
-      background-color: #22c55e;
-    }
-
-    #studentIDInput {
-      margin-bottom: 1rem;
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 22px rgba(5, 150, 105, 0.35);
     }
 
     .footer-note {
       margin-top: 2rem;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #9ca3af;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loader {
+      border: 6px solid #e5e7eb;
+      border-top: 6px solid #10b981;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(31, 41, 55, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 14px;
+      padding: 2rem;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .modal-content.success {
+      border-left: 6px solid #10b981;
+    }
+
+    .modal-content.error {
+      border-left: 6px solid #ef4444;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .modal-content p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .modal-close {
+      margin-top: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #f3f4f6;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1f2937;
+      transition: 0.3s ease;
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #1f2937, #111827);
+      color: #f3f4f6;
+    }
+
+    body.dark .container {
+      background: #1e293b;
+      color: #f3f4f6;
+    }
+
+    body.dark .subtext,
+    body.dark .footer-note {
+      color: #94a3b8;
+    }
+
+    body.dark input,
+    body.dark video {
+      background: #374151;
+      border-color: #475569;
+      color: #f3f4f6;
+    }
+
+    body.dark .verify-btn {
+      background: linear-gradient(to right, #22c55e, #16a34a);
+    }
+
+    body.dark .modal-content {
+      background: #f9fafb;
+    }
+
+    body.dark .dark-toggle {
+      background: #334155;
+      color: #f3f4f6;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 2rem 1.2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      .verify-btn,
+      #studentIDInput {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Hello there </h2>
+    <h2>Hello there 👋</h2>
     <p class="subtext">
       Let’s verify your identity.<br>
       Enter your Student ID and align your face in the frame below.
@@ -97,19 +271,73 @@
     <button type="button" class="verify-btn" id="verifyBtn">Start Face Scan</button>
 
     <p class="footer-note">
-      Your face scan is encrypted and secure.<br>
+      🔒 Your face scan is encrypted and secure.<br>
       Need help? Contact our IT Support Team.
     </p>
   </div>
 
   <canvas id="snapshotCanvas" width="640" height="480" style="display: none;"></canvas>
 
+  <!-- Loader Overlay -->
+  <div class="loader-overlay" id="loader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="feedbackModal">
+    <div class="modal-content" id="modalContent">
+      <h3 id="modalTitle">Status</h3>
+      <p id="modalMessage">Feedback message.</p>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-toggle" id="darkToggle">🌙 Dark Mode</button>
+
   <script>
     const video = document.getElementById('camera');
     const canvas = document.getElementById('snapshotCanvas');
     const button = document.getElementById('verifyBtn');
+    const loader = document.getElementById('loader');
+    const modal = document.getElementById('feedbackModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const darkToggle = document.getElementById('darkToggle');
 
-    // Start the camera
+    // Dark mode persistence
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark");
+    }
+
+    darkToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+    });
+
+    function showLoader(show) {
+      loader.style.display = show ? "flex" : "none";
+    }
+
+    function showModal(status, message) {
+      modalContent.className = `modal-content ${status}`;
+      modalTitle.textContent = status === "success" ? "✅ Verified!" : "❌ Verification Failed";
+      modalMessage.textContent = message;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentIDFromURL = urlParams.get("student_id");
+
+    if (studentIDFromURL) {
+      document.getElementById("studentIDInput").value = studentIDFromURL;
+    }
+
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
@@ -119,17 +347,16 @@
         console.error(err);
       });
 
-    // Main logic
     button.addEventListener("click", () => {
       const studentID = document.getElementById("studentIDInput").value.trim();
-
       if (!studentID) {
-        alert("❗ Please enter your Student ID.");
+        showModal("error", "Please enter your Student ID.");
         return;
       }
 
       button.disabled = true;
       button.innerText = "Scanning...";
+      showLoader(true);
 
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -139,33 +366,33 @@
         formData.append("student_id", studentID);
         formData.append("image", blob, "snapshot.jpg");
 
-        fetch("http://127.0.0.1:5000/verify_face", {
+        fetch("http://192.168.10.113:5000/verify_face", {
           method: "POST",
           body: formData
         })
         .then(res => res.json())
         .then(data => {
-          console.log("✅ Response:", data);
+          showLoader(false);
+          button.disabled = false;
+          button.innerText = "Start Face Scan";
 
           if (data.status === "success") {
             localStorage.setItem("verified_name", data.name);
             localStorage.setItem("verified_id", studentID);
             localStorage.setItem("verified_rollno", data.rollno);
 
-            // Stop camera stream
             const stream = video.srcObject;
             if (stream) stream.getTracks().forEach(track => track.stop());
 
             window.location.href = "secure-area.html";
           } else {
-            alert("❌ " + data.msg);
-            button.disabled = false;
-            button.innerText = "Start Face Scan";
+            showModal("error", data.msg || "Verification failed.");
           }
         })
         .catch(err => {
+          showLoader(false);
           console.error("❌ Fetch Error:", err);
-          alert("❌ Could not connect to the backend.");
+          showModal("error", "Could not connect to the backend.");
           button.disabled = false;
           button.innerText = "Start Face Scan";
         });
